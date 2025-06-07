@@ -19,8 +19,10 @@ echo
 
 cp snipesec_tmux.conf ~/.tmux.conf
 mkdir -p ~/Scripts
-cp showIP_VM.sh ~/Scripts/showIP_VM.sh
-chmod +x ~/Scripts/showIP_VM.sh
+cp vpnIP_VM.sh ~/Scripts/vpnIP_VM.sh
+cp localip.sh ~/Scripts/localip.sh
+chmod +x ~/Scripts/vpnIP_VM.sh
+chmod +x ~/Scripts/localip.sh
 
 tmux_plugin="adding tmux plugin manager..."
 for ((i=0; i<${#tmux_plugin}; i++)); do
