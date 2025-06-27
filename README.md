@@ -9,8 +9,8 @@
 git clone https://github.com/vxsparsh/tmux_config
 cd tmux_config
 ./install.sh
-rm -rf icons-in-terminal
 ```
+
 ```
     |\__/,|   (`\
   _.|o o  |_   ) )
