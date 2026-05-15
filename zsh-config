@@ -1,0 +1,57 @@
+eval "$(zoxide init zsh)"
+alias cd="z"
+# set up fzf key bindings and fuzzy completion
+eval "$(fzf --zsh)"
+
+export FZF_DEFAULT_COMMAND="fdfind --hidden --strip-cwd-prefix --exclude .git "
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fdfind --type=d --hidden --strip-cwd-prefix --exclude .git"
+
+export FZF_DEFAULT_OPTS="--height 50% --layout=default --border --color=hl:#2dd4bf"
+
+
+# fzf preview for tmux
+export FZF_TMUX_OPTS=" -p90%,70% "
+
+# Setup fzf previews
+export FZF_CTRL_T_OPTS="--preview 'batcat --color=always -n --line-range :500 {}'"
+export FZF_ALT_C_OPTS="--preview 'eza --icons=always --tree --color=always {} | head -200'"
+
+
+# opens documentation through fzf (eg: git,zsh etc.)
+alias fman='print -l ${(k)commands} | fzf | xargs man'
+
+# Batcat (Better cat)
+alias bcat="batcat"
+
+# eza (better ls)
+
+alias ls="eza --color=always --icons=always"
+alias ll="eza --long --color=always --icons=always"
+alias la="eza --long --all --color=always --icons=always"
+
+## zoxide (smarter cd)
+eval "$(zoxide init zsh)"
+alias cd="z"
+
+
+## alias for zshrc and tmux
+alias zshreload="source ~/.zshrc && echo 'Zsh Reloaded!'"
+
+# tmux session manager
+tmux-session-switch() {
+    local session=$(tmux list-sessions | fzf --preview "tmux list-windows -t {1}" | awk -F: '{print $1}')
+
+    if [ -n "$session" ]; then
+        if [ -n "$TMUX" ]; then
+            tmux switch-client -t "$session"
+        elif tmux has-session -t "$session" 2>/dev/null; then
+            tmux attach-session -t "$session"
+        else
+            tmux new-session -s "$session"
+        fi
+    fi
+}
+
+# Ensure keybinding works
+bindkey -s '^F' 'tmux-session-switch\n'
