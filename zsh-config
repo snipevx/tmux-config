@@ -1,3 +1,11 @@
+export PATH="/home/kali/.local/bin:$PATH"
+
+alias thmup="sudo openvpn /home/kali/Documents/vpn-config/snipesec.ovpn"
+alias htbup="sudo openvpn /home/kali/Documents/vpn-config/lab_0xSN1PE.ovpn"
+alias bloodhound="docker compose -f /home/kali/.config/bloodhound/docker-compose.yml up -d"
+alias bloodhound-stop="docker compose -f /home/kali/.config/bloodhound/docker-compose.yml stop"
+alias bloodhound-python="bloodhound-ce-python"
+
 eval "$(zoxide init zsh)"
 alias cd="z"
 # set up fzf key bindings and fuzzy completion
